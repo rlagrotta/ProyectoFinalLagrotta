@@ -4,62 +4,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lista de tareas</title>
-<!-- jQuery -->
- 
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <title>Plataforma de CRM para Empresa de Recaudación de Vehículos</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.2.1/dist/css/bootstrap.min.css"
         integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-<!-- Bootstrap JS -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<!-- Bootstrap CSS -->
-
     <link rel="stylesheet" href="css/style.css" />
 
 </head>
 
 <body>
-    <!-- Button to trigger modal -->
-
-
-    <!-- Modal -->
-    <div class="modal fade" id="completedTasksModal" tabindex="-1" role="dialog" aria-labelledby="completedTasksModalLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="completedTasksModalLabel">Tareas Completadas</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body" id="completedTasksList">
-            <!-- Aquí se agregarán las tareas completadas -->
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary close2Btn" data-dismiss="modal">Cerrar</button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" >Tareas pendientes</a>
+        <a class="navbar-brand" href="#">DebtDriveManager</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
           <div class="navbar-nav">
-            <a class="nav-item nav-link active" disabled href="#">Añadir tareas</a>
-            <a class="nav-item nav-link " data-toggle="modal" data-target="#exampleModal" href="#" onclick="tareasCompletadas()">Tareas completadas</a>
+            <a class="nav-item nav-link active" href="#">Buscador <span class="sr-only">(current)</span></a>
+            <a class="nav-item nav-link" disabled href="#">Nuevo deudor</a>
+            <a class="nav-item nav-link" disabled href="#">Control y Permisos</a>
           </div>
         </div>
       </nav>
 
     <div class="container">
+        <div class="px-4 py-5 my-5 text-center bg-light">
+            <h1 class="display-5 fw-bold">Plataforma de Recaudación de Vehículos</h1>
+            <div class="col-lg-6 mx-auto">
+                <p class="lead mb-4">
+                    Esta plataforma optimiza la gestión de clientes morosos y el equipo de recaudadores de una empresa
+                    especializada en la recuperación de vehículos por incumplimiento de préstamos bancarios,
+                    centralizando el control de la información de los casos de recaudación.
+                </p>
+            </div>
+        </div>
         <div class="container__finder">
-            <h1>Nueva tarea</h1>
+            <h1>Buscador de Clientes Morosos</h1>
             <div class="container__finder__inputs">
 
                 <div class="container__finder__inputs">
@@ -68,29 +47,57 @@
 
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
-                                <span class="input-group-text" id="basic-addon1">Escribir Tarea</span>
+                                <span class="input-group-text" id="basic-addon1">Nombre del Cliente</span>
                             </div>
-                            <input type="text" class="form-control" id="anadirInput" aria-label="NombreDelCliente"
+                            <input type="text" class="form-control" placeholder="" aria-label="NombreDelCliente"
                                 aria-describedby="basic-addon1">
                         </div>
-                        <button class="btn btn-outline-secondary btn-block" type="button"
-                        onclick="anadirFunc()">Añadir</button>
-                        <button class="btn btn-outline-secondary btn-block" type="button"
-                        onclick="borrarFunc()">Borrar</button>
 
                         <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon1">Cédula del Cliente</span>
+                            </div>
+                            <input type="text" class="form-control" placeholder="" aria-label="NombreDelCliente"
+                                aria-describedby="basic-addon1">
                         </div>
 
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon1">Placa del Vehículo</span>
+                            </div>
+                            <input type="text" class="form-control" placeholder="" aria-label="NombreDelCliente"
+                                aria-describedby="basic-addon1">
+                        </div>
                     </div>
 
+                    <div class="container__col2">
+
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon1">Número del ticket del vehículo</span>
+                            </div>
+                            <input type="text" class="form-control" placeholder="" aria-label="NombreDelCliente"
+                                aria-describedby="basic-addon1">
+                        </div>
+
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon1">Nombre del Prestamo</span>
+                            </div>
+                            <input type="text" class="form-control" placeholder="" aria-label="NombreDelCliente"
+                                aria-describedby="basic-addon1">
+                        </div>
+
+                        <button class="btn btn-outline-secondary btn-block" type="button"
+                            onclick="myFunction()">Buscar</button>
+
+
+                    </div>
                 </div>
 
             </div>
-            <div id="contenedorTabla" class="table">
+            <div id="contenedorTabla">
             </div>
-            
-
-            
             <script src="js/miarchivo.js"></script>
             <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
                 integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"

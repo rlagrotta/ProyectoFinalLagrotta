@@ -16,7 +16,6 @@
 div#contenedorTabla {
     display: flex;
     margin-top: 4rem;
-    justify-content: center;
 }
 
 .table td, .table th {
@@ -29,8 +28,4 @@ div#contenedorTabla {
 }
 .container__col2 > *:not(:last-child) {
     opacity: .5;
-}
-
-table {
-    width: 600px;
 }
