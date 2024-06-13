@@ -1,0 +1,31 @@
+.container__finder {
+    text-align: center;
+}
+
+.d-flex.flex-row {
+    width: 830px;
+    /* place-content: flex-end; */
+}
+
+.container__finder__inputs {
+    display: flex;
+    justify-content: center;
+    display: inline-flex;
+}
+
+div#contenedorTabla {
+    display: flex;
+    margin-top: 4rem;
+}
+
+.table td, .table th {
+    text-align: left;
+}
+
+
+.container__col1.mr-2 {
+    opacity: .5;
+}
+.container__col2 > *:not(:last-child) {
+    opacity: .5;
+}
