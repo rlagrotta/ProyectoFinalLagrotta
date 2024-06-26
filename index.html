@@ -41,59 +41,44 @@
             <h1>Buscador de Clientes Morosos</h1>
             <div class="container__finder__inputs">
 
-                <div class="container__finder__inputs">
+                <form id="miFormulario" class="container__finder__inputs" >
 
-                    <div class="container__col1 mr-2">
 
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text" id="basic-addon1">Nombre del Cliente</span>
-                            </div>
-                            <input type="text" class="form-control" placeholder="" aria-label="NombreDelCliente"
-                                aria-describedby="basic-addon1">
-                        </div>
 
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
-                                <span class="input-group-text" id="basic-addon1">Cédula del Cliente</span>
+                               
                             </div>
-                            <input type="text" class="form-control" placeholder="" aria-label="NombreDelCliente"
-                                aria-describedby="basic-addon1">
+                            <input type="text" class="form-control" placeholder="" aria-label="NombreDelCliente" name="ValorDeInput"
+                                aria-describedby="basic-addon1" id="ValorDeInput">
                         </div>
+
+                    
+
+                    
 
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
-                                <span class="input-group-text" id="basic-addon1">Placa del Vehículo</span>
+                             
                             </div>
-                            <input type="text" class="form-control" placeholder="" aria-label="NombreDelCliente"
-                                aria-describedby="basic-addon1">
-                        </div>
-                    </div>
-
-                    <div class="container__col2">
-
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text" id="basic-addon1">Número del ticket del vehículo</span>
-                            </div>
-                            <input type="text" class="form-control" placeholder="" aria-label="NombreDelCliente"
-                                aria-describedby="basic-addon1">
-                        </div>
-
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text" id="basic-addon1">Nombre del Prestamo</span>
-                            </div>
-                            <input type="text" class="form-control" placeholder="" aria-label="NombreDelCliente"
-                                aria-describedby="basic-addon1">
-                        </div>
+                            <select title="para que deje de joder" custom-select" id="inputGroupSelect01">
+                              <option selected>Todas las categorías</option>
+                              <option value="nombre">Nombre del cliente</option>
+                              <option value="cedula2">Cedula del cliente</option>
+                              <option value="placa">Placa del Vehículo</option>
+                              <option value="ticket">Número de Ticket</option>
+                              <option value="prestamo">Número de Prestamo</option>
+                            </select>
+                          </div>
 
                         <button class="btn btn-outline-secondary btn-block" type="button"
                             id="buscarButtonForm">Buscar</button>
 
 
-                    </div>
-                </div>
+                    
+                </form>
+
+
 
             </div>
             <div id="contenedorTabla">

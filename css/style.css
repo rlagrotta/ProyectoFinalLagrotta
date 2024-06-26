@@ -29,3 +29,19 @@ div#contenedorTabla {
 .container__col2 > *:not(:last-child) {
     opacity: .5;
 }
+form#miFormulario {
+    gap: 5px;
+}
+select#inputGroupSelect01 {
+    width: 200px;
+    border-radius: 4px;
+}
+button#buscarButtonForm {
+    height: 38px;
+    padding: 6px 40px;
+}
+
+input#NombreDelCliente {
+    width: 277px;
+    border-radius: 4px;
+}
