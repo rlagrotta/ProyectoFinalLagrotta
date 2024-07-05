@@ -129,7 +129,7 @@ function handleSearch(opcionSeleccionada, valorDeInput) {
   console.log(`Aquí empezaría la búsqueda con la opción: ${opcionSeleccionada} y el valor: ${valorDeInput} `);
   switch (opcionSeleccionada) {
     case "nombre":
-      getSearch();
+      getSearch(valorDeInput);
    /*   const inputBusqueda = valorDeInput.toLowerCase(); // Convertir a minúsculas para la comparación
       // Encontrar el cliente que coincida con el nombre
       let clienteEncontrado = texto.clientes.find(cliente => cliente.nombre.toLowerCase() === inputBusqueda);
@@ -162,16 +162,74 @@ function handleSearch(opcionSeleccionada, valorDeInput) {
   }
 }
 
-function getSearch() {
-  console.log("getSearch")
+function getSearch(valorDeInput) {
+  let contenedorTabla = 'contenedorTabla'; // Asegúrate de definir correctamente el id
+  let tabla = document.getElementById(contenedorTabla);
+  if (!tabla) {
+    console.log("El contenedor de la tabla no existe");
+    return;
+  }
+  
+  console.log("getSearch");
+  
   let obj = {};
-  for(let value of texto.clientes){
+
+  // Variable para controlar si se encontró el nombre
+  let nombreEncontrado = false;
+
+  // Recorre el array de clientes
+  texto.clientes.forEach(cliente => {
+    if (cliente.nombre === valorDeInput) {
+      nombreEncontrado = true;
+      console.log(`yes contains: ${JSON.stringify(cliente)}`);
+      
+      let html = `<table class="table">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Nombre</th>
+          <th scope="col">Apellido</th>
+          <th scope="col">Cedula</th>
+          <th scope="col">Placa</th>
+          <th scope="col">Ticket</th>
+          <th scope="col">Tipo</th>
+          <th scope="col">Opciones</th>
+        </tr>
+      </thead>
+      <tbody>`;
+      
+      cliente.vehiculos.forEach((vehiculo, index) => {
+        html += `
+        <tr class="animate__fadeInDown" style="transition: all 1s; transition-delay: 1s;">
+          <th scope="row">${cliente.id}</th>
+          <td>${cliente.nombre}</td>
+          <td>${cliente.apellido}</td>
+          <td>${cliente.cedula || "N/A"}</td>
+          <td>${vehiculo.placa}</td>
+          <td>${vehiculo.numero_ticket}</td>
+          <td>${vehiculo.prestamo}</td>
+          <td><a href="#" disabled>Ver</a>/<a href="#" disabled>Editar</a></td>
+        </tr>`;
+      });
+      
+      html += `</tbody></table>`;
+      
+      // Inserta el HTML en el contenedor de la tabla
+      tabla.innerHTML = html;
+    }
+  });
+
+  // Si el nombre no fue encontrado
+  if (!nombreEncontrado) {
+    console.log("no contains");
+  }
+}
+    
+   /*for(let value of texto.clientes){
     console.log(JSON.stringify(value))
     let contenedorTabla = document.getElementById('contenedorTabla');
     contenedorTabla.innerHTML += JSON.stringify(value);
-  }
-}
-
+  }*/
 
 
 
@@ -265,6 +323,9 @@ function mostrarTodaLaInformacion() {
 }
 
 function agregarDeudor() {
+  //Crear nuevo cliente moroso (nombre: input..)
+  // enviar sitio web a agregar.html
+  //
   let nombre = prompt("Introduce el nombre del cliente:");
   if (nombre === null || nombre.trim() === "") {
     alert("Nombre no válido.");
@@ -398,3 +459,11 @@ searchButtonForm.addEventListener("click", function (event) {
 
 controlButton = document.getElementById("controlButtonId");
 controlButton.addEventListener("click", controlFunc);
+
+
+// aqui empieza nuevo.html
+
+AgregarButtonFormBtn = document.getElementById("AgregarButtonForm")
+AgregarButtonFormBtn.addEventListener("click", function(event){
+  agregarDeudor(event);
+} )
