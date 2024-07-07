@@ -27,7 +27,7 @@
       </nav>
 
     <div class="container">
-        <div class="px-4 py-5 my-5 text-center bg-light">
+        <div class="px-4 py-5 my-5 text-center bg-light" id="containerBuscadorPrincipal">
             <h1 class="display-5 fw-bold">Plataforma de Recaudación de Vehículos</h1>
             <div class="col-lg-6 mx-auto">
                 <p class="lead mb-4">
@@ -36,53 +36,88 @@
                     centralizando el control de la información de los casos de recaudación.
                 </p>
             </div>
-        </div>
-        <div class="container__finder">
-            <h1>Buscador de Clientes Morosos</h1>
-            <div class="container__finder__inputs">
-
-                <form id="miFormulario" class="container__finder__inputs" >
-
-
-
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                               
-                            </div>
-                            <input type="text" class="form-control" placeholder="" aria-label="NombreDelCliente" name="ValorDeInput"
-                                aria-describedby="basic-addon1" id="ValorDeInput">
-                        </div>
-
-                    
-
-                    
-
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                             
-                            </div>
-                            <select title="para que deje de joder" custom-select" id="inputGroupSelect01">
-                              <option selected>Todas las categorías</option>
-                              <option value="nombre">Nombre del cliente</option>
-                              <option value="cedula2">Cedula del cliente</option>
-                              <option value="placa">Placa del Vehículo</option>
-                              <option value="ticket">Número de Ticket</option>
-                              <option value="prestamo">Número de Prestamo</option>
-                            </select>
+            <div class="container__finder">
+              <h1>Buscador de Clientes Morosos</h1>
+              <div class="container__finder__inputs">
+  
+                  <form id="miFormulario" class="container__finder__inputs" >
+  
+  
+  
+                          <div class="input-group mb-3">
+                              <div class="input-group-prepend">
+                                 
+                              </div>
+                              <input type="text" class="form-control" placeholder="" aria-label="NombreDelCliente" name="ValorDeInput"
+                                  aria-describedby="basic-addon1" id="ValorDeInput">
                           </div>
+  
+                      
+  
+                      
+  
+                          <div class="input-group mb-3">
+                              <div class="input-group-prepend">
+                               
+                              </div>
+                              <select title="para que deje de joder" custom-select" id="inputGroupSelect01">
+                                <option selected>Todas las categorías</option>
+                                <option value="nombre">Nombre del cliente</option>
+                                <option value="cedula2">Cedula del cliente</option>
+                                <option value="placa">Placa del Vehículo</option>
+                                <option value="ticket">Número de Ticket</option>
+                                <option value="prestamo">Número de Prestamo</option>
+                              </select>
+                            </div>
+  
+                          <button class="btn btn-outline-secondary btn-block" type="button"
+                              id="buscarButtonForm">Buscar</button>
+  
+  
+                      
+                  </form>
+  
+  
+  
+              </div>
+              <div id="contenedorTabla">
+              </div>
+        </div>
 
-                        <button class="btn btn-outline-secondary btn-block" type="button"
-                            id="buscarButtonForm">Buscar</button>
 
 
-                    
-                </form>
-
-
-
-            </div>
-            <div id="contenedorTabla">
-            </div>
+          </div>
+          <div id="containerNuevoCliente">
+        
+            <form>
+        <div class="input-group mb-3">
+            <span class="input-group-text" >nombre</span>
+            <input type="text" class="form-control" id="nombre-nuevo-input" name="nombre-nuevo-input"  aria-label="Username" aria-describedby="basic-addon1">
+          </div>
+          <div class="input-group mb-3">
+            <span class="input-group-text" >apellido</span>
+            <input type="text" class="form-control" id="apellido-nuevo-input" name="apellido-nuevo-input" aria-label="Username" aria-describedby="basic-addon1">
+          </div>
+          <div class="input-group mb-3">
+            <span class="input-group-text">cédula</span>
+            <input type="text" class="form-control" id="cedula-nuevo-input" name="cedula-nuevo-input" aria-label="Username" aria-describedby="basic-addon1">
+          </div>
+          <div class="input-group mb-3">
+            <span class="input-group-text">placa</span>
+            <input type="text" class="form-control"id="placa-nuevo-input" name="placa-nuevo-input" aria-label="Username" aria-describedby="basic-addon1">
+          </div>
+          <div class="input-group mb-3">
+            <span class="input-group-text">número de ticket</span>
+            <input type="text" class="form-control" id="ticket-nuevo-input" name="ticket-nuevo-input" aria-label="Username" aria-describedby="basic-addon1">
+          </div>
+          <div class="input-group mb-3">
+            <span class="input-group-text" >tipo de prestamo</span>
+            <input type="text" class="form-control" id="prestamo-nuevo-input" name="prestamo-nuevo-input" aria-label="Username" aria-describedby="basic-addon1">
+          </div>
+          <button class="btn btn-outline-secondary btn-block" type="button"
+          id="AgregarButtonForm">Agregar</button>
+        </form>
+        </div>
             <script src="js/miarchivo.js"></script>
             <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
                 integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"

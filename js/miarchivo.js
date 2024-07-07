@@ -1,5 +1,5 @@
 // Objeto con clientes para tener datos que imprimir en el caso que se necesiten
-let texto = {
+const texto = {
   "clientes": [
     {
       "id": 1,
@@ -55,8 +55,8 @@ let texto = {
     },
     {
       "id": 5,
-      "nombre": "Giovanna",
-      "nombre": "Lagrotta",
+      "nombre": "Giovanna", 
+      "apellido": "Lagrotta",
       "cedula": "8783615",
       "vehiculos": [
         {
@@ -103,9 +103,41 @@ let texto = {
           "prestamo": "Préstamo de Auto"
         }
       ]
-    },
+    }
   ]
-};
+}
+
+let pageState = "Buscador";
+// Inicializando elementos de la interface en el Main
+const buscadorBtn = document.getElementById("buscarNavButton");
+const agregaDeudorBtn = document.getElementById("agregaDeudorButton");
+const controlBtn = document.getElementById("controlButtonId");
+const containerBuscador = document.getElementById("containerBuscadorPrincipal")
+const containerNuevo = document.getElementById("containerNuevoCliente")
+// Inicializando elementos de la interface en el formulario de Agregar Nuevo Deudor
+
+
+function handlePages() {
+  if (pageState === "Buscador") {
+      buscadorBtn.classList.add("active");
+      agregaDeudorBtn.classList.remove("active");
+      controlBtn.classList.remove("active");
+      containerBuscador.style.display = "block";
+      containerNuevo.style.display = "none";
+  } else if (pageState === "Nuevo") {
+      buscadorBtn.classList.remove("active");
+      agregaDeudorBtn.classList.add("active");
+      controlBtn.classList.remove("active");
+      containerBuscador.style.display = "none";
+      containerNuevo.style.display = "block";
+  } else if (pageState === "Control") {
+      buscadorBtn.classList.remove("active");
+      agregaDeudorBtn.classList.remove("active");
+      controlBtn.classList.add("active");
+      // Asegúrate de manejar el contenedor correspondiente para el estado "Control"
+  }
+}
+
 
 function handleForm() {
   const elementoSeleccionado = document.getElementById("inputGroupSelect01");
@@ -237,6 +269,11 @@ function getSearch(valorDeInput) {
 
 // Aqui empieza la vaina
 
+/*
+let containerBuscador = document.getElementById("containerBuscadorPrincipal")
+let containerNuevo = document.getElementById("containerNuevoCliente")
+*/ 
+/*
 function buscar() {
   console.log("buscar")
   const categorias = [
@@ -275,7 +312,7 @@ function buscar() {
   } else {
     alert("No se encontraron resultados.");
   }
-}
+}*/
 
 function buscarEnArray(categoria, informacion) {
   let resultados = [];
@@ -323,6 +360,7 @@ function mostrarTodaLaInformacion() {
 }
 
 function agregarDeudor() {
+
   //Crear nuevo cliente moroso (nombre: input..)
   // enviar sitio web a agregar.html
   //
@@ -440,25 +478,36 @@ function MostrarListaBuscada() {
   }
 }
 
-// Botón que agrega un nuevo cliente
-agregarButton = document.getElementById("agregaDeudorButton");
-agregarButton.addEventListener("click", function (event) {
+// Acciones de botón
+agregaDeudorBtn.addEventListener("click", function (event) {
+  pageState = "Nuevo";
   agregarDeudor(event);
+  handlePages("Buscador")
 
 });
 //botón para buscar por categoría en el nav
-buscarButton = document.getElementById("buscarNavButton");
-buscarButton.addEventListener("click", buscar);
+buscadorBtn.addEventListener("click", ()=>{
+  pageState = "Buscador";
+ // buscar();
+  handlePages()
+});
+// boton controles
+controlBtn.addEventListener("click", ()=>{
+  pageState = "Control";
+  controlFunc();
+
+});
+
 //botón para buscar por categoría
 searchButtonForm = document.getElementById("buscarButtonForm");
 searchButtonForm.addEventListener("click", function (event) {
   handleForm(event);
+  handlePages("Buscar");
   // MostrarListaBuscada(event);
 
 });
 
-controlButton = document.getElementById("controlButtonId");
-controlButton.addEventListener("click", controlFunc);
+
 
 
 // aqui empieza nuevo.html
@@ -467,3 +516,5 @@ AgregarButtonFormBtn = document.getElementById("AgregarButtonForm")
 AgregarButtonFormBtn.addEventListener("click", function(event){
   agregarDeudor(event);
 } )
+
+handlePages(pageState);

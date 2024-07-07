@@ -45,3 +45,7 @@ input#NombreDelCliente {
     width: 277px;
     border-radius: 4px;
 }
+.input-group-text{
+    border-top-right-radius: 0.0rem!important;
+    border-bottom-right-radius: 0.0rem!important;   
+}
