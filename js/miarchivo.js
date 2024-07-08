@@ -1,3 +1,21 @@
+const usuarios = {
+  "accesos": [
+    {
+      "id": 1,
+      "usuario": "rocketpower",
+      "contraseña": "Marsepa147",
+      "nombre": "Roque"
+    },
+    {
+      "id": 2,
+      "usuario": "anabelilla",
+      "contraseña": "Marsepa148",
+      "nombre": "Anabel"
+    }
+  ]
+
+}
+
 // Objeto con clientes para tener datos que imprimir en el caso que se necesiten
 const texto = {
   "clientes": [
@@ -55,7 +73,7 @@ const texto = {
     },
     {
       "id": 5,
-      "nombre": "Giovanna", 
+      "nombre": "Giovanna",
       "apellido": "Lagrotta",
       "cedula": "8783615",
       "vehiculos": [
@@ -107,7 +125,27 @@ const texto = {
   ]
 }
 
-let pageState = "Buscador";
+/* el login en la aplicacion es false por default, manda a leer al storage si el login es true, si lo es entonces
+pageState = "inicioDeSesion";, luego crea una funcion del botón "IniciarButtonLogin" que vea si nombreUsuario-input.value está en usuarios.accesos
+y en el caso que lo sea mandará a la pagina inicioDeSesion con el pageState = "inicioDeSesion";
+ */
+
+
+
+
+
+
+/**/
+
+
+
+let pageState = "inicioDeSesion";
+//Inicializando elementos de la interface inicio de sesion
+const inicioDeSesion = document.getElementById("containerInicioDeSesion");
+const usuarioInput = document.getElementById("nombreUsuario-input");
+const claveInput = document.getElementById("claveUsuario-input");
+const iniciarBtn = document.getElementById("IniciarButtonLogin");
+
 // Inicializando elementos de la interface en el Main
 const buscadorBtn = document.getElementById("buscarNavButton");
 const agregaDeudorBtn = document.getElementById("agregaDeudorButton");
@@ -115,26 +153,43 @@ const controlBtn = document.getElementById("controlButtonId");
 const containerBuscador = document.getElementById("containerBuscadorPrincipal")
 const containerNuevo = document.getElementById("containerNuevoCliente")
 // Inicializando elementos de la interface en el formulario de Agregar Nuevo Deudor
+const nombreInput = document.getElementById("nombre-nuevo-input");
+const apellidoInput = document.getElementById("apellido-nuevo-input");
+const cedulaInput = document.getElementById("cedula-nuevo-input");
+const placaInput = document.getElementById("placa-nuevo-input");
+const ticketInput = document.getElementById("ticket-nuevo-input");
+const prestamoInput = document.getElementById("prestamo-nuevo-input");
 
 
 function handlePages() {
   if (pageState === "Buscador") {
-      buscadorBtn.classList.add("active");
-      agregaDeudorBtn.classList.remove("active");
-      controlBtn.classList.remove("active");
-      containerBuscador.style.display = "block";
-      containerNuevo.style.display = "none";
+    buscadorBtn.classList.add("active");
+    agregaDeudorBtn.classList.remove("active");
+    controlBtn.classList.remove("active");
+    containerBuscador.style.display = "block";
+    containerNuevo.style.display = "none";
+    inicioDeSesion.style.display = "none"
   } else if (pageState === "Nuevo") {
-      buscadorBtn.classList.remove("active");
-      agregaDeudorBtn.classList.add("active");
-      controlBtn.classList.remove("active");
-      containerBuscador.style.display = "none";
-      containerNuevo.style.display = "block";
+    buscadorBtn.classList.remove("active");
+    agregaDeudorBtn.classList.add("active");
+    controlBtn.classList.remove("active");
+    containerBuscador.style.display = "none";
+    containerNuevo.style.display = "block";
+    inicioDeSesion.style.display = "none"
   } else if (pageState === "Control") {
-      buscadorBtn.classList.remove("active");
-      agregaDeudorBtn.classList.remove("active");
-      controlBtn.classList.add("active");
-      // Asegúrate de manejar el contenedor correspondiente para el estado "Control"
+    buscadorBtn.classList.remove("active");
+    agregaDeudorBtn.classList.remove("active");
+    controlBtn.classList.add("active");
+    inicioDeSesion.style.display = "none"
+    containerBuscador.style.display = "none";
+    containerNuevo.style.display = "none";
+  } else if (pageState === "inicioDeSesion") {
+    buscadorBtn.classList.remove("active");
+    agregaDeudorBtn.classList.remove("active");
+    controlBtn.classList.remove("active");
+    containerBuscador.style.display = "none";
+    containerNuevo.style.display = "none";
+
   }
 }
 
@@ -162,19 +217,19 @@ function handleSearch(opcionSeleccionada, valorDeInput) {
   switch (opcionSeleccionada) {
     case "nombre":
       getSearch(valorDeInput);
-   /*   const inputBusqueda = valorDeInput.toLowerCase(); // Convertir a minúsculas para la comparación
-      // Encontrar el cliente que coincida con el nombre
-      let clienteEncontrado = texto.clientes.find(cliente => cliente.nombre.toLowerCase() === inputBusqueda);
-      // Mostrar los datos del cliente si fue encontrado
-      if (clienteEncontrado) {
-
-        console.log(`Se encontró cliente ${clienteEncontrado.nombre}`)
-        obj = JSON.stringify(clienteEncontrado);
-        console.log(obj)
-        document.getElementById("contenedorTabla").innerHTML = JSON.stringify(clienteEncontrado);
-      } else {
-        document.getElementById('contenedorTabla').innerHTML = 'Cliente no encontrado';
-      }*/
+      /*   const inputBusqueda = valorDeInput.toLowerCase(); // Convertir a minúsculas para la comparación
+         // Encontrar el cliente que coincida con el nombre
+         let clienteEncontrado = texto.clientes.find(cliente => cliente.nombre.toLowerCase() === inputBusqueda);
+         // Mostrar los datos del cliente si fue encontrado
+         if (clienteEncontrado) {
+   
+           console.log(`Se encontró cliente ${clienteEncontrado.nombre}`)
+           obj = JSON.stringify(clienteEncontrado);
+           console.log(obj)
+           document.getElementById("contenedorTabla").innerHTML = JSON.stringify(clienteEncontrado);
+         } else {
+           document.getElementById('contenedorTabla').innerHTML = 'Cliente no encontrado';
+         }*/
       break;
     case "cedula":
       console.log("Aquí empieza la búsqueda de cédula");
@@ -201,9 +256,9 @@ function getSearch(valorDeInput) {
     console.log("El contenedor de la tabla no existe");
     return;
   }
-  
+
   console.log("getSearch");
-  
+
   let obj = {};
 
   // Variable para controlar si se encontró el nombre
@@ -214,7 +269,7 @@ function getSearch(valorDeInput) {
     if (cliente.nombre === valorDeInput) {
       nombreEncontrado = true;
       console.log(`yes contains: ${JSON.stringify(cliente)}`);
-      
+
       let html = `<table class="table">
       <thead>
         <tr>
@@ -229,7 +284,7 @@ function getSearch(valorDeInput) {
         </tr>
       </thead>
       <tbody>`;
-      
+
       cliente.vehiculos.forEach((vehiculo, index) => {
         html += `
         <tr class="animate__fadeInDown" style="transition: all 1s; transition-delay: 1s;">
@@ -243,9 +298,9 @@ function getSearch(valorDeInput) {
           <td><a href="#" disabled>Ver</a>/<a href="#" disabled>Editar</a></td>
         </tr>`;
       });
-      
+
       html += `</tbody></table>`;
-      
+
       // Inserta el HTML en el contenedor de la tabla
       tabla.innerHTML = html;
     }
@@ -256,63 +311,7 @@ function getSearch(valorDeInput) {
     console.log("no contains");
   }
 }
-    
-   /*for(let value of texto.clientes){
-    console.log(JSON.stringify(value))
-    let contenedorTabla = document.getElementById('contenedorTabla');
-    contenedorTabla.innerHTML += JSON.stringify(value);
-  }*/
 
-
-
-
-
-// Aqui empieza la vaina
-
-/*
-let containerBuscador = document.getElementById("containerBuscadorPrincipal")
-let containerNuevo = document.getElementById("containerNuevoCliente")
-*/ 
-/*
-function buscar() {
-  console.log("buscar")
-  const categorias = [
-    "nombre del cliente",
-    "nombre del ticket del vehiculo",
-    "cedula del cliente",
-    "nombre del prestamo",
-    "placa del vehiculo",
-    "mostrar toda la información"
-  ];
-
-  let categoria = prompt("Elige una categoría:\n1. Nombre del cliente\n2. Nombre del ticket del vehiculo\n3. Cédula del cliente\n4. Nombre del préstamo\n5. Placa del vehiculo\n6. Mostrar toda la información");
-
-  categoria = parseInt(categoria);
-  if (categoria < 1 || categoria > 6 || isNaN(categoria)) {
-    alert("Categoría no válida.");
-    return;
-  }
-
-  if (categoria === 6) {
-    mostrarTodaLaInformacion();
-    return;
-  }
-
-  let informacion = prompt(`Introduce la información para buscar en "${categorias[categoria - 1]}":`);
-
-  if (informacion === null || informacion.trim() === "") {
-    alert("No se introdujo ninguna información.");
-    return;
-  }
-
-  let resultados = buscarEnArray(categoria, informacion);
-
-  if (resultados.length > 0) {
-    alert(`Resultados encontrados:\n${resultados.join('\n')}`);
-  } else {
-    alert("No se encontraron resultados.");
-  }
-}*/
 
 function buscarEnArray(categoria, informacion) {
   let resultados = [];
@@ -361,77 +360,64 @@ function mostrarTodaLaInformacion() {
 
 function agregarDeudor() {
 
-  //Crear nuevo cliente moroso (nombre: input..)
-  // enviar sitio web a agregar.html
-  //
-  let nombre = prompt("Introduce el nombre del cliente:");
-  if (nombre === null || nombre.trim() === "") {
-    alert("Nombre no válido.");
-    return;
-  }
-
-  let cedula = prompt("Introduce la cédula del cliente:");
-  if (cedula === null || cedula.trim() === "") {
-    alert("Cédula no válida.");
-    return;
-  }
-
-  let placa = prompt("Introduce la placa del vehiculo:");
-  if (placa === null || placa.trim() === "") {
-    alert("Placa no válida.");
-    return;
-  }
-
-  let numero_ticket = prompt("Introduce el número del ticket del vehiculo:");
-  if (numero_ticket === null || numero_ticket.trim() === "") {
-    alert("Número del ticket no válido.");
-    return;
-  }
-
-  let prestamo = prompt("Introduce el nombre del préstamo:");
-  if (prestamo === null || prestamo.trim() === "") {
-    alert("Nombre del préstamo no válido.");
-    return;
-  }
-
+  
+  //nombreInput,apellidoInput,cedulaInput,placaInput,ticketInput,prestamoInput, AgregarButtonFormBtn;
   // Crear nuevo deudor
   let nuevoDeudor = {
     id: texto.clientes.length + 1,
-    nombre: nombre,
-    cedula: cedula,
+    nombre: nombreInput.value,
+    cedula: cedulaInput.value,
     vehiculos: [
       {
-        placa: placa,
-        numero_ticket: numero_ticket,
-        prestamo: prestamo
+        placa: placaInput.value,
+        numero_ticket: ticketInput.value,
+        prestamo: prestamoInput.value
       }
     ]
   };
 
-  // Agregar nuevo deudor al array
-  texto.clientes.push(nuevoDeudor);
-  alert("Deudor agregado exitosamente.");
 
-  // Obtener el último cliente agregado
-  const ultimoCliente = texto.clientes[texto.clientes.length - 1];
+  // recorrer objeto
+  let claves = Object.keys(nuevoDeudor);
+  let DeboAnadir = false; // Inicializar DeboAnadir como false
 
-  // Mostrar la información del último cliente en la consola
-  console.log("ultima información agregada exitosamente");
-  console.log("Nombre: " + ultimoCliente.nombre);
-  console.log("Cedula: " + ultimoCliente.cedula);
-  ultimoCliente.vehiculos.forEach((vehiculo, index) => {
-    console.log(`Vehículo ${index + 1}`);
-    console.log("Placa: " + vehiculo.placa);
-    console.log("Numero de Ticket: " + vehiculo.numero_ticket);
-    console.log("Prestamo: " + vehiculo.prestamo);
+  for (let i = 0; i < claves.length; i++) {
+    if (claves[i].trim() === "" || nuevoDeudor[claves[i]] === null) {
+      console.log(nuevoDeudor[claves[i]]);
+      DeboAnadir = false; // Asegurar que no se agregue si alguna clave no es válida
+      break; // Salir del bucle si se encuentra una clave inválida
+    } else {
+      DeboAnadir = true; // Marcar DeboAnadir como true si todas las claves son válidas
+    }
+  }
+
+  if (DeboAnadir) {
+    texto.clientes.push(nuevoDeudor);
+    console.log(texto.clientes[texto.clientes.length - 1])
+    Swal.fire({
+      position: "center",
+      icon: "success",
+      title: "El cliente ha sido grabado",
+      showConfirmButton: false,
+      timer: 1500
+    });
+  }
+  // Agregar nuevo deudor al array si estos no tienen null o espacios vacios
 
 
-  });
+  //alert("Deudor agregado exitosamente.");
 }
+
 // función que se dispara al hacer click en control
 // Por ahora deshabilitemosla ya que aun no tenemos los conocimientos necesarios
 function controlFunc() {
-  alert("Esta función no esta habilitada por el momento, vuelva mas tarde");
+  Swal.fire({
+    position: "center",
+    icon: "success",
+    title: "Esta función no esta habilitada por el momento, vuelva mas tarde",
+    showConfirmButton: false,
+    timer: 1500
+  });
 }
 
 
@@ -481,18 +467,18 @@ function MostrarListaBuscada() {
 // Acciones de botón
 agregaDeudorBtn.addEventListener("click", function (event) {
   pageState = "Nuevo";
-  agregarDeudor(event);
+  //agregarDeudor(event);
   handlePages("Buscador")
 
 });
 //botón para buscar por categoría en el nav
-buscadorBtn.addEventListener("click", ()=>{
+buscadorBtn.addEventListener("click", () => {
   pageState = "Buscador";
- // buscar();
+  // buscar();
   handlePages()
 });
 // boton controles
-controlBtn.addEventListener("click", ()=>{
+controlBtn.addEventListener("click", () => {
   pageState = "Control";
   controlFunc();
 
@@ -513,8 +499,13 @@ searchButtonForm.addEventListener("click", function (event) {
 // aqui empieza nuevo.html
 
 AgregarButtonFormBtn = document.getElementById("AgregarButtonForm")
-AgregarButtonFormBtn.addEventListener("click", function(event){
+AgregarButtonFormBtn.addEventListener("click", function (event) {
   agregarDeudor(event);
-} )
+})
+
+iniciarBtn.addEventListener("click",function(event){
+  pageState = "inicioDeSesion"
+  handlePages()
+})
 
 handlePages(pageState);

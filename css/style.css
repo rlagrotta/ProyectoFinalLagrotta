@@ -49,3 +49,14 @@ input#NombreDelCliente {
     border-top-right-radius: 0.0rem!important;
     border-bottom-right-radius: 0.0rem!important;   
 }
+
+div#containerNuevoCliente {
+    margin-top: 2rem;
+    max-width: 800px;
+    margin: 2rem auto;
+}
+
+div#containerInicioDeSesion {
+    max-width: 380px;
+    margin: 2rem auto;
+}
