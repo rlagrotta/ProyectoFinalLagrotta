@@ -133,12 +133,16 @@ y en el caso que lo sea mandará a la pagina inicioDeSesion con el pageState = "
 let loginStatus = localStorage.getItem("loginStatus"); // Aquí debe ser una cadena
 let pageState;
 
-if (loginStatus === "false" || loginStatus === null || loginStatus === "") {
+const invalidStatuses = ["false", null, ""];
+
+if ([...invalidStatuses].includes(loginStatus)) {
   pageState = "Deslogueado";
 } else {
   pageState = "inicioDeSesion";
 }
 
+//Iniciando elementos del navBar
+const navBar = document.getElementById("navbar");
 
 //Inicializando elementos de la interface inicio de sesion
 const inicioDeSesion = document.getElementById("containerInicioDeSesion");
@@ -167,12 +171,14 @@ function handlePages() {
     agregaDeudorBtn.classList.remove("active");
     controlBtn.classList.remove("active");
     containerBuscador.style.display = "block";
+    navBar.style.display = "flex";
     containerNuevo.style.display = "none";
     inicioDeSesion.style.display = "none"
   } else if (pageState === "Nuevo") {
     buscadorBtn.classList.remove("active");
     agregaDeudorBtn.classList.add("active");
     controlBtn.classList.remove("active");
+    navBar.style.display = "flex";
     containerBuscador.style.display = "none";
     containerNuevo.style.display = "block";
     inicioDeSesion.style.display = "none"
@@ -180,12 +186,14 @@ function handlePages() {
     buscadorBtn.classList.remove("active");
     agregaDeudorBtn.classList.remove("active");
     controlBtn.classList.add("active");
+    navBar.style.display = "flex";
     inicioDeSesion.style.display = "none"
     containerBuscador.style.display = "none";
     containerNuevo.style.display = "none";
   } else if (pageState === "inicioDeSesion") {
     buscadorBtn.classList.remove("active");
     agregaDeudorBtn.classList.remove("active");
+    navBar.style.display = "none";
     controlBtn.classList.remove("active");
     containerBuscador.style.display = "none";
     containerNuevo.style.display = "none";
@@ -197,6 +205,7 @@ function handlePages() {
     containerBuscador.style.display = "none";
     containerNuevo.style.display = "none";
     inicioDeSesion.style.display = "block"
+    navBar.style.display = "none";
 
   }
 }
@@ -272,8 +281,8 @@ function handleSearch(opcionSeleccionada, valorDeInput) {
 }
 
 function getSearch(valorDeInput) {
-  let contenedorTabla = 'contenedorTabla'; // Asegúrate de definir correctamente el id
-  let tabla = document.getElementById(contenedorTabla);
+  const contenedorTabla = 'contenedorTabla'; 
+  const tabla = document.getElementById(contenedorTabla);
   if (!tabla) {
     console.log("El contenedor de la tabla no existe");
     return;
@@ -283,6 +292,18 @@ function getSearch(valorDeInput) {
 
   // Variable para controlar si se encontró el nombre
   let nombreEncontrado = false;
+
+  const generarFilaHTML = (cliente, vehiculo) => `
+    <tr class="animate__fadeInDown" style="transition: all 1s; transition-delay: 1s;">
+      <th scope="row">${cliente.id}</th>
+      <td>${cliente.nombre}</td>
+      <td>${cliente.apellido}</td>
+      <td>${cliente.cedula || "N/A"}</td>
+      <td>${vehiculo.placa}</td>
+      <td>${vehiculo.numero_ticket}</td>
+      <td>${vehiculo.prestamo}</td>
+      <td><a href="#" onClick="controlFunc()" disabled>Ver</a>/<a href="#" onClick="controlFunc()" disabled>Editar</a></td>
+    </tr>`;
 
   let html = `<table class="table">
   <thead>
@@ -301,38 +322,28 @@ function getSearch(valorDeInput) {
 
   // Recorre el array de clientes
   texto.clientes.forEach(cliente => {
+    const { nombre, apellido, cedula, vehiculos } = cliente; // aquí desestructuro cliente
     if (
-      cliente.nombre === valorDeInput ||
-      cliente.apellido === valorDeInput ||
-      cliente.cedula === valorDeInput ||
-      cliente.vehiculos.some(vehiculo =>
-        vehiculo.placa === valorDeInput ||
-        vehiculo.numero_ticket === valorDeInput ||
-        vehiculo.prestamo === valorDeInput
+      nombre === valorDeInput ||
+      apellido === valorDeInput ||
+      cedula === valorDeInput ||
+      vehiculos.some(({ placa, numero_ticket, prestamo }) =>
+        placa === valorDeInput ||
+        numero_ticket === valorDeInput ||
+        prestamo === valorDeInput
       )
     ) {
       nombreEncontrado = true;
       console.log(`lo encontró: ${JSON.stringify(cliente)}`);
 
-      cliente.vehiculos.forEach((vehiculo, index) => {
-        html += `
-        <tr class="animate__fadeInDown" style="transition: all 1s; transition-delay: 1s;">
-          <th scope="row">${cliente.id}</th>
-          <td>${cliente.nombre}</td>
-          <td>${cliente.apellido}</td>
-          <td>${cliente.cedula || "N/A"}</td>
-          <td>${vehiculo.placa}</td>
-          <td>${vehiculo.numero_ticket}</td>
-          <td>${vehiculo.prestamo}</td>
-          <td><a href="#" onClick="controlFunc()"; disabled>Ver</a>/<a href="#" onClick="controlFunc()"; disabled>Editar</a></td>
-        </tr>`;
+      vehiculos.forEach(vehiculo => {
+        html += generarFilaHTML(cliente, vehiculo);
       });
     }
   });
 
   html += `</tbody></table>`;
 
-  // Inserta el HTML en el contenedor de la tabla
   tabla.innerHTML = html;
 
   // Si el nombre no fue encontrado
@@ -474,7 +485,6 @@ searchButtonForm = document.getElementById("buscarButtonForm");
 searchButtonForm.addEventListener("click", function (event) {
   handleForm(event);
   handlePages("Buscar");
-  // MostrarListaBuscada(event);
 
 });
 // aqui empieza nuevo.html
@@ -487,7 +497,7 @@ AgregarButtonFormBtn.addEventListener("click", function (event) {
 iniciarBtn.addEventListener("click", handleLogin);
 handlePages(pageState);
 
-
+// Verifico al cargar el estado de la sesión
 addEventListener("load", (event) => {
   if(loginStatus === "true"){
     pageState = "Buscador"
