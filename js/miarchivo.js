@@ -324,7 +324,7 @@ function getSearch(valorDeInput) {
           <td>${vehiculo.placa}</td>
           <td>${vehiculo.numero_ticket}</td>
           <td>${vehiculo.prestamo}</td>
-          <td><a href="#" disabled>Ver</a>/<a href="#" disabled>Editar</a></td>
+          <td><a href="#" onClick="controlFunc()"; disabled>Ver</a>/<a href="#" onClick="controlFunc()"; disabled>Editar</a></td>
         </tr>`;
       });
     }
