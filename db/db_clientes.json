@@ -1,0 +1,129 @@
+[
+  {
+    "id": 1,
+    "nombre": "Juan",
+    "apellido": "Pérez",
+    "cedula": "123456789",
+    "vehiculos": [
+      {
+        "placa": "ABC123",
+        "numero_ticket": "TCKT001",
+        "prestamo": "Préstamo de Auto"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "nombre": "María",
+    "apellido": "López",
+    "cedula": "987654321",
+    "vehiculos": [
+      {
+        "placa": "DEF456",
+        "numero_ticket": "TCKT003",
+        "prestamo": "Préstamo de Auto"
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "nombre": "García",
+    "apellido": "García",
+    "cedula": "456123789",
+    "vehiculos": [
+      {
+        "placa": "GHI789",
+        "numero_ticket": "TCKT004",
+        "prestamo": "Préstamo de Auto"
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "nombre": "Roque",
+    "apellido": "Lagrotta",
+    "cedula": "8783614",
+    "vehiculos": [
+      {
+        "placa": "ROCK37PWR",
+        "numero_ticket": "TCKT005",
+        "prestamo": "Préstamo de Moto"
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "nombre": "Giovanna",
+    "apellido": "Lagrotta",
+    "cedula": "8783615",
+    "vehiculos": [
+      {
+        "placa": "GIOGROTT",
+        "numero_ticket": "TCKT005",
+        "prestamo": "Préstamo de Auto"
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "nombre": "Stefano",
+    "apellido": "Fouquet",
+    "cedula": "456123721",
+    "vehiculos": [
+      {
+        "placa": "STEFQT01",
+        "numero_ticket": "TCKT006",
+        "prestamo": "Préstamo de Auto"
+      }
+    ]
+  },
+  {
+    "id": 7,
+    "nombre": "Carlos",
+    "apellido": "Diaz",
+    "cedula": "456123754",
+    "vehiculos": [
+      {
+        "placa": "TH3B4TM4N",
+        "numero_ticket": "TCKT007",
+        "prestamo": "Préstamo de Auto"
+      }
+    ]
+  },
+  {
+    "id": 8,
+    "nombre": "María",
+    "apellido": "López",
+    "vehiculos": [
+      {
+        "placa": "TH3B4TM4N",
+        "numero_ticket": "TCKT007",
+        "prestamo": "Préstamo de Auto"
+      }
+    ]
+  },
+  {
+    "id": 9,
+    "nombre": "asd",
+    "cedula": "asd",
+    "vehiculos": [
+      {}
+    ]
+  },
+  {
+    "id": 10,
+    "nombre": "asd",
+    "cedula": "asd",
+    "vehiculos": [
+      {}
+    ]
+  },
+  {
+    "id": 11,
+    "nombre": "asd",
+    "cedula": "asd",
+    "vehiculos": [
+      {}
+    ]
+  }
+]

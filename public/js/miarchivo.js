@@ -16,114 +16,46 @@ const usuarios = {
   ]
 }
 
-// Objeto con Base de datos de clientes para tener datos que imprimir en el buscador
-const texto = {
-  "clientes": [
-    {
-      "id": 1,
-      "nombre": "Juan",
-      "apellido": "Pérez",
-      "cedula": "123456789",
-      "vehiculos": [
-        {
-          "placa": "ABC123",
-          "numero_ticket": "TCKT001",
-          "prestamo": "Préstamo de Auto"
-        }
-      ]
-    },
-    {
-      "id": 2,
-      "nombre": "María",
-      "apellido": "López",
-      "cedula": "987654321",
-      "vehiculos": [
-        {
-          "placa": "DEF456",
-          "numero_ticket": "TCKT003",
-          "prestamo": "Préstamo de Auto"
-        }
-      ]
-    },
-    {
-      "id": 3,
-      "nombre": "García",
-      "apellido": "García",
-      "cedula": "456123789",
-      "vehiculos": [
-        {
-          "placa": "GHI789",
-          "numero_ticket": "TCKT004",
-          "prestamo": "Préstamo de Auto"
-        }
-      ]
-    },
-    {
-      "id": 4,
-      "nombre": "Roque",
-      "apellido": "Lagrotta",
-      "cedula": "8783614",
-      "vehiculos": [
-        {
-          "placa": "ROCK37PWR",
-          "numero_ticket": "TCKT005",
-          "prestamo": "Préstamo de Moto"
-        }
-      ]
-    },
-    {
-      "id": 5,
-      "nombre": "Giovanna",
-      "apellido": "Lagrotta",
-      "cedula": "8783615",
-      "vehiculos": [
-        {
-          "placa": "GIOGROTT",
-          "numero_ticket": "TCKT005",
-          "prestamo": "Préstamo de Auto"
-        }
-      ]
-    },
-    {
-      "id": 6,
-      "nombre": "Stefano",
-      "apellido": "Fouquet",
-      "cedula": "456123721",
-      "vehiculos": [
-        {
-          "placa": "STEFQT01",
-          "numero_ticket": "TCKT006",
-          "prestamo": "Préstamo de Auto"
-        }
-      ]
-    },
-    {
-      "id": 7,
-      "nombre": "Carlos",
-      "apellido": "Diaz",
-      "cedula": "456123754",
-      "vehiculos": [
-        {
-          "placa": "TH3B4TM4N",
-          "numero_ticket": "TCKT007",
-          "prestamo": "Préstamo de Auto"
-        }
-      ]
-    },
-    {
-      "id": 8,
-      "nombre": "María",
-      "apellido": "López",
-      "vehiculos": [
-        {
-          "placa": "TH3B4TM4N",
-          "numero_ticket": "TCKT007",
-          "prestamo": "Préstamo de Auto"
-        }
-      ]
-    }
-  ]
+
+
+// Define la clase Cliente
+class Cliente {
+  constructor(id, nombre, apellido, cedula, vehiculos) {
+      this.id = id;
+      this.nombre = nombre;
+      this.apellido = apellido;
+      this.cedula = cedula;
+      this.vehiculos = vehiculos;
+  }
 }
+
+// Función para obtener los datos de los clientes
+async function obtenerClientes() {
+  try {
+      const response = await fetch("api/clientes");
+      const data = await response.json();
+      
+      // Crear una lista de objetos Cliente
+      const clientes = data.map(clienteData => {
+          const { id, nombre, apellido, cedula, vehiculos } = clienteData;
+          return new Cliente(id, nombre, apellido, cedula, vehiculos);
+      });
+
+      console.log(clientes);
+      return clientes;
+  } catch (error) {
+      console.error("Error al obtener los clientes:", error);
+  }
+}
+
+// Llamar a la función para obtener y mostrar los clientes
+obtenerClientes().then(clientes => {
+  console.log(clientes);
+});
+
+// Objeto con Base de datos de clientes para tener datos que imprimir en el buscador
+// texto ahora se va a llamar clientes y va en db_clientes
+
 
 /* el login en la aplicacion es false por default, manda a leer al storage si el login es true, si lo es entonces
 pageState = "inicioDeSesion";, luego crea una funcion del botón "IniciarButtonLogin" que vea si nombreUsuario-input.value está en usuarios.accesos
@@ -266,7 +198,7 @@ function handleSearch(opcionSeleccionada, valorDeInput) {
       getSearch(valorDeInput);
       break;
     case "vehiculo":
-      cgetSearch(valorDeInput);
+      getSearch(valorDeInput);
       break;
     case "ticket":
       getSearch(valorDeInput);
@@ -280,15 +212,10 @@ function handleSearch(opcionSeleccionada, valorDeInput) {
   }
 }
 
-function getSearch(valorDeInput) {
+async function getSearch(valorDeInput) {
+
   const contenedorTabla = 'contenedorTabla'; 
   const tabla = document.getElementById(contenedorTabla);
-  if (!tabla) {
-    console.log("El contenedor de la tabla no existe");
-    return;
-  }
-
-  console.log("getSearch");
 
   // Variable para controlar si se encontró el nombre
   let nombreEncontrado = false;
@@ -305,23 +232,28 @@ function getSearch(valorDeInput) {
       <td><a href="#" onClick="controlFunc()" disabled>Ver</a>/<a href="#" onClick="controlFunc()" disabled>Editar</a></td>
     </tr>`;
 
-  let html = `<table class="table">
-  <thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">Nombre</th>
-      <th scope="col">Apellido</th>
-      <th scope="col">Cedula</th>
-      <th scope="col">Placa</th>
-      <th scope="col">Ticket</th>
-      <th scope="col">Tipo</th>
-      <th scope="col">Opciones</th>
-    </tr>
-  </thead>
-  <tbody>`;
+
 
   // Recorre el array de clientes
-  texto.clientes.forEach(cliente => {
+  try {
+    const clientes = await obtenerClientes();
+    let nombreEncontrado = false;
+    let html = `<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Nombre</th>
+        <th scope="col">Apellido</th>
+        <th scope="col">Cedula</th>
+        <th scope="col">Placa</th>
+        <th scope="col">Ticket</th>
+        <th scope="col">Tipo</th>
+        <th scope="col">Opciones</th>
+      </tr>
+    </thead>
+    <tbody>`;
+  
+  clientes.forEach(cliente => {
     const { nombre, apellido, cedula, vehiculos } = cliente; // aquí desestructuro cliente
     if (
       nombre === valorDeInput ||
@@ -349,13 +281,19 @@ function getSearch(valorDeInput) {
   // Si el nombre no fue encontrado
   if (!nombreEncontrado) {
     console.log("no lo encontró");
+  } else {
+                // Puedes hacer algo con el HTML generado, por ejemplo, insertarlo en el DOM
+                document.getElementById('resultados').innerHTML = html;
   }
+} catch (error) {
+  console.error("Error al procesar los clientes:", error);
+}
 }
 
 
 function buscarEnArray(categoria, informacion) {
   let resultados = [];
-  texto.clientes.forEach(cliente => {
+  clientes.forEach(cliente => {
     switch (categoria) {
       case 1:
         if (cliente.nombre.toLowerCase() === informacion.toLowerCase()) {
@@ -394,17 +332,19 @@ function buscarEnArray(categoria, informacion) {
 }
 
 function mostrarTodaLaInformacion() {
-  let todaLaInformacion = texto.clientes.map(cliente => JSON.stringify(cliente, null, 2)).join('\n\n');
+  let todaLaInformacion = clientes.map(cliente => JSON.stringify(cliente, null, 2)).join('\n\n');
   alert(`Toda la información:\n${todaLaInformacion}`);
 }
 
-function agregarDeudor() {
+async function agregarDeudor() {
+
+  const clientes = await obtenerClientes();
 
 
   //nombreInput,apellidoInput,cedulaInput,placaInput,ticketInput,prestamoInput, AgregarButtonFormBtn;
   // Crear nuevo deudor
   let nuevoDeudor = {
-    id: texto.clientes.length + 1,
+    id: clientes.length + 1,
     nombre: nombreInput.value,
     cedula: cedulaInput.value,
     vehiculos: [
@@ -432,16 +372,35 @@ function agregarDeudor() {
   }
 
   if (DeboAnadir) {
-    texto.clientes.push(nuevoDeudor);
-    console.log(texto.clientes[texto.clientes.length - 1])
+   // clientes.push(nuevoDeudor);
+   const response = await fetch('api/agregar-deudor', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(nuevoDeudor)
+  });
+
+  const data = await response.json();
+  
+  if (response.ok) {
     Swal.fire({
-      position: "center",
-      icon: "success",
-      title: "El cliente ha sido grabado",
+      position: 'center',
+      icon: 'success',
+      title: 'El cliente ha sido grabado',
       showConfirmButton: false,
       timer: 1500
     });
+  } else {
+    Swal.fire({
+      position: 'center',
+      icon: 'error',
+      title: 'Error al agregar el cliente',
+      text: data.error,
+      showConfirmButton: true
+    });
   }
+}
   // Agregar nuevo deudor al array si estos no tienen null o espacios vacios
 
 

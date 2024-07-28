@@ -10,7 +10,6 @@
   <link rel="stylesheet" href="css/style.css" />
 
 </head>
-
 <body>
   <nav class="navbar navbar-expand-lg navbar-light bg-light" id="navbar">
     <a class="navbar-brand" href="#">DebtDriveManager</a>
@@ -79,35 +78,35 @@
       </div>
     </div>
     <div id="containerNuevoCliente">
-      <form>
+      <form id="deudorForm">
         <div class="input-group mb-3">
           <span class="input-group-text">nombre</span>
-          <input type="text" class="form-control" id="nombre-nuevo-input" name="nombre-nuevo-input"
+          <input type="text" class="form-control" id="nombre-nuevo-input" required name="nombre-nuevo-input"
             aria-label="Username" aria-describedby="basic-addon1">
         </div>
         <div class="input-group mb-3">
           <span class="input-group-text">apellido</span>
-          <input type="text" class="form-control" id="apellido-nuevo-input" name="apellido-nuevo-input"
+          <input type="text" class="form-control" id="apellido-nuevo-input" required name="apellido-nuevo-input"
             aria-label="Username" aria-describedby="basic-addon1">
         </div>
         <div class="input-group mb-3">
           <span class="input-group-text">cédula</span>
-          <input type="text" class="form-control" id="cedula-nuevo-input" name="cedula-nuevo-input"
+          <input type="text" class="form-control" id="cedula-nuevo-input" required name="cedula-nuevo-input"
             aria-label="Username" aria-describedby="basic-addon1">
         </div>
         <div class="input-group mb-3">
           <span class="input-group-text">placa</span>
-          <input type="text" class="form-control" id="placa-nuevo-input" name="placa-nuevo-input" aria-label="Username"
+          <input type="text" class="form-control" id="placa-nuevo-input" required name="placa-nuevo-input" aria-label="Username"
             aria-describedby="basic-addon1">
         </div>
         <div class="input-group mb-3">
           <span class="input-group-text">número de ticket</span>
-          <input type="text" class="form-control" id="ticket-nuevo-input" name="ticket-nuevo-input"
+          <input type="text" class="form-control" id="ticket-nuevo-input" required name="ticket-nuevo-input"
             aria-label="Username" aria-describedby="basic-addon1">
         </div>
         <div class="input-group mb-3">
           <span class="input-group-text">tipo de prestamo</span>
-          <input type="text" class="form-control" id="prestamo-nuevo-input" name="prestamo-nuevo-input"
+          <input type="text" class="form-control" id="prestamo-nuevo-input" required name="prestamo-nuevo-input"
             aria-label="Username" aria-describedby="basic-addon1">
         </div>
         <button class="btn btn-outline-secondary btn-block" type="button" id="AgregarButtonForm">Agregar</button>
